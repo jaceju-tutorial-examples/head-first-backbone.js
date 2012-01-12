@@ -15,24 +15,28 @@ Countdown.Widget = Backbone.Model.extend({
   start: function () {
     model = this.model;
     setInterval(function () {
-      model.decrease();
+      model.counting = true;
+      model.countdown();
     }, 1000);
   }
 });
 
 Countdown.NumModel = Backbone.Model.extend({
   max: 59,
+  counting: false,
   default: {
     value: 0
   },
-  decrease: function () {
-    value = this.get('value');
-    if (value > 0) {
-      value -= 1;
-    } else {
-      value = this.max;
+  countdown: function () {
+    if (this.counting) {
+      value = this.get('value');
+      if (value > 0) {
+        value -= 1;
+      } else {
+        value = this.max;
+      }
+      this.set({ value: value });
     }
-    this.set({ value: value });
   }
 });
 
@@ -47,7 +51,6 @@ Countdown.NumView = Backbone.View.extend({
   },
   _zeroFill: function (num, len) {
     len -= num.toString().length;
-    console.log(len);
     if (len > 0) {
       return new Array(len + (/\./.test(num) ? 2 : 1)).join('0') + num;
     }
