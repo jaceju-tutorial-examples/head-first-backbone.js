@@ -4,7 +4,7 @@ Countdown.Widget = Backbone.Model.extend({
   model: null,
   view: null,
   initialize: function () {
-    this.model = new Countdown.SecondModel({
+    this.model = new Countdown.NumModel({
       value: 0
     });
     this.view = new Countdown.SecondView({
@@ -20,7 +20,7 @@ Countdown.Widget = Backbone.Model.extend({
   }
 });
 
-Countdown.SecondModel = Backbone.Model.extend({
+Countdown.NumModel = Backbone.Model.extend({
   default: {
     value: 0
   },
