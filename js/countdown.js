@@ -21,6 +21,7 @@ Countdown.Widget = Backbone.Model.extend({
 });
 
 Countdown.NumModel = Backbone.Model.extend({
+  max: 59,
   default: {
     value: 0
   },
@@ -29,7 +30,7 @@ Countdown.NumModel = Backbone.Model.extend({
     if (value > 0) {
       value -= 1;
     } else {
-      value = 19;
+      value = this.max;
     }
     this.set({ value: value });
   }
