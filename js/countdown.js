@@ -7,8 +7,8 @@ Countdown.Widget = Backbone.Model.extend({
     this.model = new Countdown.NumModel({
       value: 0
     });
-    this.view = new Countdown.SecondView({
-      el: '.second',
+    this.view = new Countdown.NumView({
+      el: '.num',
       model: this.model
     });
   },
@@ -36,7 +36,7 @@ Countdown.NumModel = Backbone.Model.extend({
   }
 });
 
-Countdown.SecondView = Backbone.View.extend({
+Countdown.NumView = Backbone.View.extend({
   initialize: function () {
     this.model.bind('change', this.render, this);
     // 注意要將 this 帶入第三個參數
