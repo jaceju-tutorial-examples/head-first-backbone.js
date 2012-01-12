@@ -14,16 +14,17 @@ Countdown.Widget = Backbone.Model.extend({
   },
   start: function () {
     model = this.model;
+    model.counting = true;
     setInterval(function () {
-      model.counting = true;
       model.countdown();
     }, 1000);
   }
 });
 
 Countdown.NumModel = Backbone.Model.extend({
-  max: 59,
+  max: 19,
   counting: false,
+  timeup: false,
   default: {
     value: 0
   },
@@ -32,6 +33,10 @@ Countdown.NumModel = Backbone.Model.extend({
       value = this.get('value');
       if (value > 0) {
         value -= 1;
+        if (0 === value) {
+          this.timeup = true;
+          this.counting = false;
+        }
       } else {
         value = this.max;
       }
