@@ -15,6 +15,7 @@ Countdown.Widget = Backbone.View.extend({
     model: null,
     view: null
   },
+  intervalEvent: null,
   initialize: function () {
     this.hour.model = new Countdown.NumModel({
       value: 0
@@ -34,7 +35,6 @@ Countdown.Widget = Backbone.View.extend({
     this.second.model = new Countdown.NumModel({
       value: 0
     });
-    this.second.model.bind('timeup', this.timeup, this);
     this.second.view = new Countdown.NumView({
       el: '.second',
       model: this.second.model
@@ -42,17 +42,19 @@ Countdown.Widget = Backbone.View.extend({
   },
   events: {
     'click .start': 'start',
+    'click .pause': 'pause',
     'click .reset': 'reset'
   },
   start: function () {
-    model = this.second.model;
-    model.counting = true;
-    setInterval(function () {
-      model.countdown();
+    secondModel.bind('timeup', this.timeup, this);
+    secondModel.counting = true;
+    this.intervalEvent = setInterval(function () {
+      secondModel.countdown();
     }, 1000);
   },
   pause: function () {
-
+    this.second.model.counting = false;
+    clearInterval(this.intervalEvent);
   },
   reset: function () {
     this.hour.model.reset();
