@@ -1,5 +1,3 @@
-try {
-
 var Countdown = {};
 
 Countdown.Widget = Backbone.View.extend({
@@ -20,7 +18,8 @@ Countdown.Widget = Backbone.View.extend({
     this.hour.model = new Countdown.NumModel({
       value: 0
     });
-    this.hour.model.max = 23;
+    this.hour.model.max = 3;
+    this.hour.model.name = 'hour';
     this.hour.view = new Countdown.NumView({
       el: '.hour',
       model: this.hour.model
@@ -28,6 +27,8 @@ Countdown.Widget = Backbone.View.extend({
     this.minute.model = new Countdown.NumModel({
       value: 0
     });
+    this.minute.model.name = 'minute';
+    this.minute.model.setParent(this.hour.model);
     this.minute.view = new Countdown.NumView({
       el: '.minute',
       model: this.minute.model
@@ -35,6 +36,8 @@ Countdown.Widget = Backbone.View.extend({
     this.second.model = new Countdown.NumModel({
       value: 0
     });
+    this.second.model.name = 'second';
+    this.second.model.setParent(this.minute.model);
     this.second.view = new Countdown.NumView({
       el: '.second',
       model: this.second.model
@@ -46,20 +49,28 @@ Countdown.Widget = Backbone.View.extend({
     'click .reset': 'reset'
   },
   start: function () {
-    secondModel.bind('timeup', this.timeup, this);
-    secondModel.counting = true;
+    // 時間到
+    this.bind('timeup', this.timeup, this);
+    // 秒數倒數完成檢查
+    var hourModel = this.hour.model;
+    var minuteModel = this.minute.model;
+    var secondModel = this.second.model;
+    hourModel.start();
+    minuteModel.start();
+    secondModel.start();
     this.intervalEvent = setInterval(function () {
       secondModel.countdown();
     }, 1000);
   },
   pause: function () {
-    this.second.model.counting = false;
+    this.second.model._counting = false;
     clearInterval(this.intervalEvent);
   },
   reset: function () {
     this.hour.model.reset();
     this.minute.model.reset();
     this.second.model.reset();
+    clearInterval(this.intervalEvent);
   },
   timeup: function (target) {
     console.log('timeup');
@@ -67,8 +78,16 @@ Countdown.Widget = Backbone.View.extend({
 });
 
 Countdown.NumModel = Backbone.Model.extend({
-  max: 59,
-  counting: false,
+  name: '',
+  max: 9,
+  _parent: null,
+  _counting: false,
+  initialize: function () {
+    this.bind('timeup', this.timeup, this);
+  },
+  setParent: function (parent) {
+    this._parent = parent;
+  },
   default: {
     value: 0
   },
@@ -91,29 +110,47 @@ Countdown.NumModel = Backbone.Model.extend({
     this.set({ value: value });
   },
   reset: function () {
+    this._counting = false;
     this.set({ value: 0 });
   },
+  start: function () {
+    this._counting = true;
+  },
+  stop: function () {
+    this._counting = false;
+  },
   countdown: function () {
-    if (this.counting) {
+    if (this._counting) {
       value = this.get('value');
       if (value > 0) {
-        value -= 1;
-        if (0 === value) {
-          this.counting = false;  // 停止倒數
-          this.trigger('timeup', this); // 時間到
-        }
+        this.minus();
       } else {
-        value = this.max;
+        this.stop();
+        this.trigger('timeup', this);
       }
-      this.set({ value: value });
     }
+  },
+  timeup: function () {
+    console.log(this.name + ': timeup');
+    if (!this._parent) {
+      return;
+    }
+    var parentValue = this._parent.get('value');
+    console.log(parentValue);
+    if (parentValue > 0) {
+      this._parent.countdown();
+    } else {
+      this._parent.trigger('timeup', this._parent);
+    }
+    this.start();
+    this.minus();
   }
 });
 
 Countdown.NumView = Backbone.View.extend({
   initialize: function () {
-    this.model.bind('change', this.render, this);
     // 注意要將 this 帶入第三個參數
+    this.model.bind('change', this.render, this);
   },
   events: {
     'click .plus': 'plus',
@@ -126,8 +163,8 @@ Countdown.NumView = Backbone.View.extend({
     this.model.minus();
   },
   render: function (e) {
-    $('.value', this.el).text(this._zeroFill(this.model.get('value'), 2));
     // 這裡的 this 會變成上面 bind 方法的第三個參數
+    $('.value', this.el).text(this._zeroFill(this.model.get('value'), 2));
   },
   _zeroFill: function (num, len) {
     len -= num.toString().length;
@@ -143,7 +180,3 @@ $(function () {
     el: '.count-down'
   });
 });
-
-} catch (e) {
-  console.log(e);
-}
