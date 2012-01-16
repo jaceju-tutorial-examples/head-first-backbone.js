@@ -1,6 +1,7 @@
 var Countdown = {};
 
 Countdown.Widget = Backbone.View.extend({
+  _counting: false,
   hour: {
     model: null,
     view: null
@@ -28,7 +29,7 @@ Countdown.Widget = Backbone.View.extend({
       value: 0
     });
     this.minute.model.name = 'minute';
-    this.minute.model.setParent(this.hour.model);
+    this.minute.model.parent = this.hour.model;
     this.minute.view = new Countdown.NumView({
       el: '.minute',
       model: this.minute.model
@@ -37,7 +38,7 @@ Countdown.Widget = Backbone.View.extend({
       value: 0
     });
     this.second.model.name = 'second';
-    this.second.model.setParent(this.minute.model);
+    this.second.model.parent = this.minute.model;
     this.second.view = new Countdown.NumView({
       el: '.second',
       model: this.second.model
@@ -49,30 +50,33 @@ Countdown.Widget = Backbone.View.extend({
     'click .reset': 'reset'
   },
   start: function () {
-    // 時間到
-    this.bind('timeup', this.timeup, this);
-    // 秒數倒數完成檢查
-    var hourModel = this.hour.model;
-    var minuteModel = this.minute.model;
-    var secondModel = this.second.model;
-    hourModel.start();
-    minuteModel.start();
-    secondModel.start();
-    this.intervalEvent = setInterval(function () {
-      secondModel.countdown();
-    }, 1000);
+    if (!this._counting) {
+      // 秒數倒數完成檢查
+      var secondModel = this.second.model;
+      // 時間到
+      secondModel.bind('timeup', this._timeup, this);
+      this.intervalEvent = setInterval(function () {
+        secondModel.countdown();
+      }, 1000);
+    } else {
+      this._counting = true;
+    }
   },
   pause: function () {
-    this.second.model._counting = false;
     clearInterval(this.intervalEvent);
+    this._counting = false;
   },
   reset: function () {
+    this.pause();
     this.hour.model.reset();
     this.minute.model.reset();
     this.second.model.reset();
-    clearInterval(this.intervalEvent);
   },
-  timeup: function (target) {
+  _timeup: function (target) {
+    this.pause();
+    this.timeup();
+  },
+  timeup: function () {
     console.log('timeup');
   }
 });
@@ -80,13 +84,8 @@ Countdown.Widget = Backbone.View.extend({
 Countdown.NumModel = Backbone.Model.extend({
   name: '',
   max: 9,
-  _parent: null,
-  _counting: false,
+  parent: null,
   initialize: function () {
-    this.bind('timeup', this.timeup, this);
-  },
-  setParent: function (parent) {
-    this._parent = parent;
   },
   default: {
     value: 0
@@ -110,40 +109,25 @@ Countdown.NumModel = Backbone.Model.extend({
     this.set({ value: value });
   },
   reset: function () {
-    this._counting = false;
     this.set({ value: 0 });
   },
-  start: function () {
-    this._counting = true;
-  },
-  stop: function () {
-    this._counting = false;
-  },
   countdown: function () {
-    if (this._counting) {
-      value = this.get('value');
-      if (value > 0) {
+    value = this.get('value');
+    if (value > 0) {
+      this.minus();
+      return true;
+    } else {
+      if (!this.parent) {
+        return false;
+      }
+      if (this.parent.countdown()) {
         this.minus();
+        return true;
       } else {
-        this.stop();
         this.trigger('timeup', this);
+        return false;
       }
     }
-  },
-  timeup: function () {
-    console.log(this.name + ': timeup');
-    if (!this._parent) {
-      return;
-    }
-    var parentValue = this._parent.get('value');
-    console.log(parentValue);
-    if (parentValue > 0) {
-      this._parent.countdown();
-    } else {
-      this._parent.trigger('timeup', this._parent);
-    }
-    this.start();
-    this.minus();
   }
 });
 
