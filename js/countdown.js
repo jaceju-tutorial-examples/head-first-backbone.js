@@ -19,7 +19,7 @@ Countdown.Widget = Backbone.View.extend({
     this.hour.model = new Countdown.NumModel({
       value: 0
     });
-    this.hour.model.max = 3;
+    this.hour.model.max = 23;
     this.hour.model.name = 'hour';
     this.hour.view = new Countdown.NumView({
       el: '.hour',
@@ -50,20 +50,19 @@ Countdown.Widget = Backbone.View.extend({
     'click .reset': 'reset'
   },
   start: function () {
+    this.pause();
     if (!this._counting) {
-      // 秒數倒數完成檢查
       var secondModel = this.second.model;
-      // 時間到
       secondModel.bind('timeup', this._timeup, this);
       this.intervalEvent = setInterval(function () {
         secondModel.countdown();
       }, 1000);
-    } else {
       this._counting = true;
     }
   },
   pause: function () {
     clearInterval(this.intervalEvent);
+    this.second.model.unbind('timeup');
     this._counting = false;
   },
   reset: function () {
@@ -83,7 +82,7 @@ Countdown.Widget = Backbone.View.extend({
 
 Countdown.NumModel = Backbone.Model.extend({
   name: '',
-  max: 9,
+  max: 59,
   parent: null,
   initialize: function () {
   },
