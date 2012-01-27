@@ -162,4 +162,7 @@ $(function () {
   var countdownWidget = new Countdown.Widget({
     el: '.count-down'
   });
+  countdownWidget.timeup = function () {
+    alert('時間到！');
+  };
 });
