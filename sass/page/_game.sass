@@ -1,0 +1,21 @@
+#game
+  display: none
+  background: url(game-bg.jpg) no-repeat
+
+  .back-home>a
+    display: block
+    padding: 10px
+    color: #666
+    +background(linear-gradient(center top , #fff, #fff 25%, #999), #999)
+    +text-shadow(1px 1px 0 #fff)
+    +border-radius(5px)
+    +box-shadow(1px 1px 3px #666)
+
+    &:hover
+      color: #333
+
+    &:active
+      position: relative
+      top: 1px
+      left: 1px
+      +box-shadow(0 0 2px #333)

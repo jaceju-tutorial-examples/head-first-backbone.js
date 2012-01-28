@@ -1,36 +1,52 @@
-<!doctype html>
-<html lang="zh-TW">
-<head>
-  <meta charset="utf-8">
-  <title>Head First Backbone</title>
-  <link rel="stylesheet" href="css/screen.css" />
-</head>
-<body>
-  <div class="count-down">
-    <div class="hour num">
-      <span class="value">00</span>
-      <button class="plus">+</button>
-      <button class="minus">-</button>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backbone Game Skeleton</title>
+    <meta charset="UTF-8" />
+    <link href="css/screen.css" media="screen, projection" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="container">
+
+      <div id="viewport"></div>
+      <div id="home-button">☐</div>
+
+      <div id="main-menu" class="viewport">
+        <h1>Backbone Game</h1>
+        <ul>
+          <li><a href="#/start" class="start">Start Game</a></li>
+          <li><a href="#/options" class="options">Options</a></li>
+        </ul>
+      </div>
+
+      <div id="options" class="viewport">
+        <form action="" method="post">
+          <div class="option">
+            <label for="option-1">Options 1</label><input type="checkbox" id="option-1" value="y" />
+          </div>
+          <div class="option">
+            <label for="option-2">Options 2</label><input type="checkbox" id="option-2" value="y" />
+          </div>
+          <div class="option">
+            <label for="option-3">Options 3</label><input type="checkbox" id="option-3" value="y" />
+          </div>
+        </form>
+        <div class="back-home"><a href="#" class="home">Main Menu</a></div>
+      </div>
+
+      <div id="game" class="viewport">
+        <div class="screen"></div>
+        <div class="back-home"><a href="#" class="home">Main Menu</a></div>
+      </div>
+
     </div>
-    <div class="minute num">
-      <span class="value">00</span>
-      <button class="plus">+</button>
-      <button class="minus">-</button>
-    </div>
-    <div class="second num">
-      <span class="value">00</span>
-      <button class="plus">+</button>
-      <button class="minus">-</button>
-    </div>
-    <div class="function">
-      <button class="start">START</span>
-      <button class="pause">PAUSE</span>
-      <button class="reset">RESET</span>
-    </div>
-  </div>
-  <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-  <script type="text/javascript" src="js/underscore.js"></script>
-  <script type="text/javascript" src="js/backbone.js"></script>
-  <script type="text/javascript" src="js/countdown.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="js/engage.itoggle.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/app.js"></script>
+
+  </body>
 </html>

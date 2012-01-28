@@ -1,0 +1,33 @@
+label
+  +border-radius(6px)
+
+  &.ilabel
+    float: left
+    cursor: pointer
+    margin-right: 5px
+
+  &.itoggle
+    float: right
+    width: 93px
+    height: 27px
+    background: url(itoggle.png) left bottom no-repeat
+    cursor: pointer
+    text-indent: -5000px
+    span
+      display: block
+      width: 93px
+      height: 27px
+      margin-bottom: 20px
+      background: url(itoggle.png) left bottom no-repeat
+      cursor: pointer
+      text-indent: -5000px
+    &.iToff
+      background-position: right bottom
+    span
+      background-position: left top
+      margin: 0
+
+input.iT_checkbox
+  position: absolute
+  top: -9999px
+  left: -9999px

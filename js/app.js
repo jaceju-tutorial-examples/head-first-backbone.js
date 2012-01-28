@@ -1,42 +1,57 @@
-var Clock = {};
+(function() {
+  var App,
+    __hasProp = Object.prototype.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-Clock.Model = Backbone.Model.extend({
-  initialize: function () {
-  },
-  defaults: {
-    'sec': 0
-  },
-  increase: function () {
-    sec = this.get('sec');
-    if (sec < 59) {
-      sec += 1;
-    } else {
-      sec = 0;
+  App = {};
+
+  App.Router = (function(_super) {
+
+    __extends(Router, _super);
+
+    function Router() {
+      Router.__super__.constructor.apply(this, arguments);
     }
-    this.set({'sec': sec});
-  }
-});
 
-Clock.View = Backbone.View.extend({
-  initialize: function () {
-    this.model.bind('change', this.render, this); // 注意要將 this 帶入第三個參數
-  },
-  render: function (e) {
-    $(this.el).text(this.model.get('sec')); // 這裡的 this 會變成上面 bind 方法的第三個參數
-  }
-});
+    Router.prototype.routes = {
+      "": "mainMenu",
+      "/options": "setOptions",
+      "/start": "startGame",
+      "/about": "about",
+      "*error": "notFound"
+    };
 
-Clock.App = function () {
-  var model = new Clock.Model();
-  var view = new Clock.View({
-    'el': '.sec',
-    'model': model
+    Router.prototype.mainMenu = function() {
+      $('.viewport').hide();
+      return $('#main-menu').show();
+    };
+
+    Router.prototype.setOptions = function() {
+      $('.viewport').hide();
+      return $('#options').show();
+    };
+
+    Router.prototype.startGame = function() {
+      $('.viewport').hide();
+      return $('#game').show();
+    };
+
+    Router.prototype.notFound = function() {
+      return alert("404");
+    };
+
+    return Router;
+
+  })(Backbone.Router);
+
+  $(function() {
+    var router;
+    router = new App.Router();
+    Backbone.history.start();
+    return $("input[type=checkbox]").iToggle({
+      keepLabel: true,
+      speed: 300
+    });
   });
-  setInterval(function () {
-    model.increase();
-  }, 1000);
-};
 
-$(function () {
-  return new Clock.App();
-});
+}).call(this);
