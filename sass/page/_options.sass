@@ -1,0 +1,27 @@
+#options
+  display: none
+  @import itoggle
+
+  form
+    position: absolute
+    top: 100px
+    left: 50%
+    width: 300px
+    margin-left: -150px
+    text-align: center
+    background: #fff
+    border: 1px solid #999
+    +border-radius(5px)
+
+    &>.option
+      padding: 10px
+      margin-bottom: 10px
+      border-bottom: 1px solid #999
+
+      &:last-child
+        margin-bottom: 0
+        border: none
+
+  .option
+    display: block
+    +clearfix
