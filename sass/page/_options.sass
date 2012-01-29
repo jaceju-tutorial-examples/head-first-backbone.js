@@ -1,6 +1,5 @@
 #options
   display: none
-  @import itoggle
 
   form
     position: absolute
@@ -14,14 +13,22 @@
     +border-radius(5px)
 
     &>.option
+      display: block
       padding: 10px
       margin-bottom: 10px
       border-bottom: 1px solid #999
+      +clearfix
 
       &:last-child
         margin-bottom: 0
         border: none
 
-  .option
-    display: block
-    +clearfix
+      .iPhoneCheckContainer
+        float: right
+
+      label
+        width: 40px
+
+      &>label
+        float: left
+        width: 160px
