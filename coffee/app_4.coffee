@@ -35,10 +35,20 @@ class App.OptionsView extends App.ViewPort
 
 class App.GameView extends App.ViewPort
 
+  seq: 1
+
   initialize: ->
+    @image = $('#image-show')
     @musicIcon = $('#music-icon')
     @soundIcon = $('#sound-icon')
     @model.bind 'change', @updateOptions
+    setInterval @changeImage, 2000
+
+  changeImage: =>
+    src = "images/pic_#{@seq}.jpg"
+    @image.hide().attr('src', src).show()
+    @seq += 1
+    @seq = 1 if @seq > 3
 
   updateOptions: =>
     if @model.get 'playMusic' then @musicIcon.show() else @musicIcon.hide()

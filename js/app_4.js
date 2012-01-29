@@ -100,13 +100,26 @@
 
     function GameView() {
       this.updateOptions = __bind(this.updateOptions, this);
+      this.changeImage = __bind(this.changeImage, this);
       GameView.__super__.constructor.apply(this, arguments);
     }
 
+    GameView.prototype.seq = 1;
+
     GameView.prototype.initialize = function() {
+      this.image = $('#image-show');
       this.musicIcon = $('#music-icon');
       this.soundIcon = $('#sound-icon');
-      return this.model.bind('change', this.updateOptions);
+      this.model.bind('change', this.updateOptions);
+      return setInterval(this.changeImage, 2000);
+    };
+
+    GameView.prototype.changeImage = function() {
+      var src;
+      src = "images/pic_" + this.seq + ".jpg";
+      this.image.hide().attr('src', src).show();
+      this.seq += 1;
+      if (this.seq > 3) return this.seq = 1;
     };
 
     GameView.prototype.updateOptions = function() {
