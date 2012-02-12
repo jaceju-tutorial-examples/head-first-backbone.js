@@ -39,7 +39,7 @@ Sample1.Chart = Backbone.View.extend({
     this.chartOptions = this.options.chartOptions ? this.options.chartOptions : this.chartOptions;
 
     var chartName = google.visualization[this.type];
-    this.chart = new chartName(this.el);
+    this.chart = new chartName(this.el); // 這裡的 el 已經是 DOM 元素了
     this.model.bind('change', this.render, this);
   },
   'render': function () {
