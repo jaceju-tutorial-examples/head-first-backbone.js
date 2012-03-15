@@ -1,7 +1,10 @@
+# 初始化 namespace
 root = @
-
 App = root.App || {}
 
+# ## OptionsModel 類別
+#
+# 主要記錄 sound 及 music 的狀態。
 class App.OptionsModel extends Backbone.Model
 
   initialize: ->
@@ -9,8 +12,10 @@ class App.OptionsModel extends Backbone.Model
       'playSound': true
       'playMusic': true
 
+# ## ViewPort 類別
 class App.ViewPort extends Backbone.View
 
+  # 顯示目前的畫面。
   render: ->
     $(@el).show()
 

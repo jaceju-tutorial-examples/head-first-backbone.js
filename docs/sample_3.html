@@ -1,0 +1,97 @@
+<!DOCTYPE html>  <html> <head>   <title>sample_3.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               sample_3.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>初始化 namespace</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">root = </span><span class="nx">@</span>
+<span class="nv">App = </span><span class="nx">root</span><span class="p">.</span><span class="nx">App</span> <span class="o">||</span> <span class="p">{}</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h2>OptionsModel 類別</h2>
+
+<p>主要記錄 sound 及 music 的狀態。</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">OptionsModel</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="nx">@set</span>
+      <span class="s">&#39;playSound&#39;</span><span class="o">:</span> <span class="kc">true</span>
+      <span class="s">&#39;playMusic&#39;</span><span class="o">:</span> <span class="kc">true</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h2>ViewPort 類別</h2>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">ViewPort</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>顯示目前的畫面。</p>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="nv">render: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="nx">@el</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">MenuView</span> <span class="k">extends</span> <span class="nx">App</span><span class="p">.</span><span class="nx">ViewPort</span>
+
+<span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">OptionsView</span> <span class="k">extends</span> <span class="nx">App</span><span class="p">.</span><span class="nx">ViewPort</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">play-music&quot;</span><span class="p">).</span><span class="nx">prop</span> <span class="s">&#39;checked&#39;</span><span class="p">,</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;playSound&#39;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;</span><span class="err">#</span><span class="s">play-sound&quot;</span><span class="p">).</span><span class="nx">prop</span> <span class="s">&#39;checked&#39;</span><span class="p">,</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;playMusic&#39;</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s">&quot;:checkbox&quot;</span><span class="p">).</span><span class="nx">iphoneStyle</span>
+      <span class="nv">onChange: </span><span class="nf">(target, checked) -&gt;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="nx">target</span><span class="p">).</span><span class="nx">trigger</span> <span class="s">&#39;changeStatus&#39;</span>
+
+  <span class="nv">events:</span>
+    <span class="s">&#39;changeStatus #play-music&#39;</span><span class="o">:</span> <span class="s">&#39;setPlayMusic&#39;</span>
+    <span class="s">&#39;changeStatus #play-sound&#39;</span><span class="o">:</span> <span class="s">&#39;setPlaySound&#39;</span>
+
+  <span class="nv">setPlayMusic: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span> <span class="s">&#39;playMusic&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">prop</span> <span class="s">&#39;checked&#39;</span>
+
+  <span class="nv">setPlaySound: </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">set</span> <span class="s">&#39;playSound&#39;</span><span class="o">:</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">prop</span> <span class="s">&#39;checked&#39;</span>
+
+<span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">GameView</span> <span class="k">extends</span> <span class="nx">App</span><span class="p">.</span><span class="nx">ViewPort</span>
+
+  <span class="nv">seq: </span><span class="mi">1</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="vi">@image = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#image-show&#39;</span><span class="p">)</span>
+    <span class="vi">@musicIcon = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#music-icon&#39;</span><span class="p">)</span>
+    <span class="vi">@soundIcon = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;#sound-icon&#39;</span><span class="p">)</span>
+    <span class="nx">@model</span><span class="p">.</span><span class="nx">bind</span> <span class="s">&#39;change&#39;</span><span class="p">,</span> <span class="nx">@updateOptions</span>
+    <span class="nx">setInterval</span> <span class="nx">@changeImage</span><span class="p">,</span> <span class="mi">2000</span>
+
+  <span class="nv">changeImage: </span><span class="o">=&gt;</span>
+    <span class="nv">src = </span><span class="s">&quot;images/pic_</span><span class="si">#{</span><span class="nx">@seq</span><span class="si">}</span><span class="s">.jpg&quot;</span>
+    <span class="nx">@image</span><span class="p">.</span><span class="nx">hide</span><span class="p">().</span><span class="nx">attr</span><span class="p">(</span><span class="s">&#39;src&#39;</span><span class="p">,</span> <span class="nx">src</span><span class="p">).</span><span class="nx">show</span><span class="p">()</span>
+    <span class="nx">@seq</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="vi">@seq = </span><span class="mi">1</span> <span class="k">if</span> <span class="nx">@seq</span> <span class="o">&gt;</span> <span class="mi">3</span>
+
+  <span class="nv">updateOptions: </span><span class="o">=&gt;</span>
+    <span class="k">if</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;playMusic&#39;</span> <span class="k">then</span> <span class="nx">@musicIcon</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span> <span class="k">else</span> <span class="nx">@musicIcon</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nx">@model</span><span class="p">.</span><span class="nx">get</span> <span class="s">&#39;playSound&#39;</span> <span class="k">then</span> <span class="nx">@soundIcon</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span> <span class="k">else</span> <span class="nx">@soundIcon</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+
+<span class="k">class</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span> <span class="k">extends</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Router</span>
+
+  <span class="nv">initialize: </span><span class="o">-&gt;</span>
+    <span class="vi">@options = </span><span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">OptionsModel</span>
+
+    <span class="vi">@views = </span><span class="nx">$</span><span class="p">(</span><span class="s">&#39;.viewport&#39;</span><span class="p">)</span>
+
+    <span class="vi">@menuView = </span><span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">MenuView</span>
+      <span class="nv">el: </span><span class="s">&#39;#main-menu&#39;</span>
+
+    <span class="vi">@optionsView = </span><span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">OptionsView</span>
+      <span class="nv">el: </span><span class="s">&#39;#options&#39;</span>
+      <span class="nv">model: </span><span class="nx">@options</span>
+
+    <span class="vi">@gameView = </span><span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">GameView</span>
+      <span class="nv">el: </span><span class="s">&#39;#game&#39;</span>
+      <span class="nv">model: </span><span class="nx">@options</span>
+
+  <span class="nv">routes:</span>
+    <span class="s">&quot;&quot;</span><span class="o">:</span> <span class="s">&quot;mainMenu&quot;</span>
+    <span class="s">&quot;options&quot;</span><span class="o">:</span> <span class="s">&quot;setOptions&quot;</span>
+    <span class="s">&quot;start&quot;</span><span class="o">:</span> <span class="s">&quot;startGame&quot;</span>
+    <span class="s">&quot;*error&quot;</span><span class="o">:</span> <span class="s">&quot;notFound&quot;</span>
+
+  <span class="nv">mainMenu: </span><span class="o">-&gt;</span>
+    <span class="nx">@views</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="nx">@menuView</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
+
+  <span class="nv">setOptions: </span><span class="o">-&gt;</span>
+    <span class="nx">@views</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="nx">@optionsView</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
+
+  <span class="nv">startGame: </span><span class="o">-&gt;</span>
+    <span class="nx">@views</span><span class="p">.</span><span class="nx">hide</span><span class="p">()</span>
+    <span class="nx">@gameView</span><span class="p">.</span><span class="nx">render</span><span class="p">()</span>
+
+  <span class="nv">notFound: </span><span class="o">-&gt;</span>
+    <span class="nx">alert</span> <span class="s">&quot;404&quot;</span>
+
+<span class="nx">$</span> <span class="o">-&gt;</span>
+  <span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">()</span>
+  <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
