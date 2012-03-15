@@ -1,0 +1,32 @@
+#main-menu
+  text-align: center
+
+  h1
+    position: absolute
+    top: 50px
+    width: 100%
+    color: #cfa
+    font-size: 28px
+    font-weight: bold
+    line-height: 100px
+    +text-shadow(0 0 10px #333)
+
+  ul
+    position: absolute
+    top: 250px
+    left: 25%
+    width: 50%
+
+    li
+      line-height: 40px
+
+      a
+        display: block
+        font-size: 20px
+        color: #666
+        text-decoration: none
+        +text-shadow(1px 1px 1px #fff)
+
+        &:hover
+          color: #fff
+          +text-shadow(0 0 10px #000)

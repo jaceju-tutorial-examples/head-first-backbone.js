@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sample</title>
+    <meta charset="UTF-8" />
+    <link href="bootstrap/css/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="css/interface.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <header>
+          <a class="btn left" href="#" id="buttonBack">Back</a>
+          <a class="btn right" href="#add" id="buttonAdd">Add</a>
+          <a class="btn right" href="#edit" id="buttonEdit">Edit</a>
+          <a class="btn right" href="#" id="buttonDone">Done</a>
+        </header>
+      </div>
+      <div class="page">
+        <div class="notes">
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+          <section>
+            <h1>
+              <a class="title" href="#">Title</a>
+              <span class="actions btn-group">
+                <a href="#" class="editNote btn">Edit</a>
+                <a href="#" class="editNote btn btn-danger">Delete</a>
+              </span>
+            </h1>
+          </section>
+        </div>
+      </div>
+      <div class="page">
+        <div class="note">
+          <article>
+            <h1 class="title">Title</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rhoncus, lorem eu facilisis dignissim, lorem tellus dapibus sem, vel placerat nisi enim vel elit. Ut eget enim dolor, condimentum pulvinar turpis. Cras elit orci, rutrum nec scelerisque at, fermentum sit amet libero. Nulla a dui sollicitudin magna sagittis fermentum. Mauris dapibus sodales ligula, ut euismod diam ultricies eu. In tortor orci, tincidunt eget laoreet eget, rutrum eu nisl. Nunc enim metus, vestibulum id adipiscing vitae, commodo in ipsum. Etiam id consectetur eros. Duis sed sem sed mi cursus faucibus. Nulla dapibus nisi libero, vel egestas massa. Etiam viverra erat eu dolor fermentum a aliquet dolor sodales. Suspendisse elementum cursus consectetur. Duis feugiat, risus nec consectetur rutrum, turpis lectus elementum ante, non lobortis metus risus ac nulla. Ut vitae lorem ac sem auctor tempus. Phasellus vulputate felis consequat diam interdum tempus. Duis a odio ut tortor hendrerit vehicula.</p>
+          </article>
+        </div>
+      </div>
+      <div class="page">
+        <form>
+          <label for="title">Title</label>
+          <input type="text" id="title" value="<%= title %>" />
+          <label for="content">Content</label>
+          <textarea rows="10" id="content"><%= content %></textarea>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="js/sample.js"></script>
+
+  </body>
+</html>

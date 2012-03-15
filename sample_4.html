@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backbone Sample 4</title>
+    <meta charset="UTF-8" />
+    <link href="bootstrap/css/bootstrap.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <link href="css/interface.css" media="screen, projection" rel="stylesheet" type="text/css" />
+ </head>
+
+  <body>
+    <div id="container">
+      <div id="header">
+        <header>
+          <a class="btn left" href="#" id="buttonBack">Back</a>
+          <button class="btn right" href="#save" id="buttonSave">Save</button>
+          <a class="btn right" href="#add" id="buttonAdd">Add</a>
+      </div>
+      <div id="page" class="page">
+      </div>
+    </div>
+
+    <script type="text/template" id="list-template">
+      <div class="list">
+      </div>
+    </script>
+
+    <script type="text/template" id="item-template">
+      <h1>
+        <a class="title" href="#show/<%= id %>"><%= title %></a>
+        <span class="actions btn-group">
+          <a href="#edit/<%= id %>" class="editNote btn">Edit</a>
+          <a href="#delete/<%= id %>" class="editNote btn btn-danger">Delete</a>
+        </span>
+      </h1>
+    </script>
+
+    <script type="text/template" id="detail-template">
+      <div class="note">
+          <article>
+            <h1 class="title"><%= title %></h1>
+            <p><%= content %></p>
+          </article>
+        </div>
+    </script>
+
+    <script type="text/template" id="editor-template">
+      <label for="title">Title</label>
+      <input type="text" id="title" value="<%= title %>" />
+      <label for="content">Content</label>
+      <textarea rows="10" id="content"><%= content %></textarea>
+    </script>
+
+    <!-- Scripts -->
+    <script src="lib/jquery.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="lib/backbone.js"></script>
+    <script src="js/sample_4.js"></script>
+
+  </body>
+</html>

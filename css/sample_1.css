@@ -1,0 +1,13 @@
+/* line 1, ../sass/sample_1.sass */
+#value-input {
+  float: left;
+  width: 150px;
+  height: 250px;
+}
+
+/* line 6, ../sass/sample_1.sass */
+#chart-1, #chart-2 {
+  float: left;
+  width: 350px;
+  height: 250px;
+}

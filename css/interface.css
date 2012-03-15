@@ -1,0 +1,70 @@
+/* line 2, ../sass/interface.sass */
+#header {
+  overflow: hidden;
+  padding: 10px;
+  height: 30px;
+  background: #445566;
+}
+/* line 8, ../sass/interface.sass */
+#header .btn.left {
+  float: left;
+  margin-right: 2px;
+}
+/* line 12, ../sass/interface.sass */
+#header .btn.right {
+  float: right;
+  margin-left: 2px;
+}
+
+/* line 21, ../sass/interface.sass */
+.page section h1, .page article h1 {
+  font-size: 16px;
+}
+
+/* line 28, ../sass/interface.sass */
+.list h1 {
+  overflow: hidden;
+  border-bottom: 1px solid #cccccc;
+}
+/* line 32, ../sass/interface.sass */
+.list h1 a.title {
+  width: 70%;
+  padding: 5px;
+  float: left;
+  display: block;
+  text-decoration: none;
+}
+/* line 39, ../sass/interface.sass */
+.list h1:hover {
+  text-decoration: none;
+  background: #eeeeee;
+}
+/* line 43, ../sass/interface.sass */
+.list h1 .actions {
+  width: 120px;
+  padding: 8px 5px;
+  text-align: right;
+  float: right;
+}
+
+/* line 50, ../sass/interface.sass */
+.note {
+  padding: 5px;
+}
+/* line 53, ../sass/interface.sass */
+.note h1.title {
+  border-bottom: 1px solid #cccccc;
+}
+/* line 56, ../sass/interface.sass */
+.note p {
+  padding: 10px 0;
+}
+
+/* line 60, ../sass/interface.sass */
+form {
+  padding: 5px;
+}
+/* line 63, ../sass/interface.sass */
+form input, form textarea {
+  width: 95%;
+}

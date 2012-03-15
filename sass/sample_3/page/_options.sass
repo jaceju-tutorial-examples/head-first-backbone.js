@@ -1,0 +1,34 @@
+#options
+  display: none
+
+  form
+    position: absolute
+    top: 100px
+    left: 50%
+    width: 300px
+    margin-left: -150px
+    text-align: center
+    background: #fff
+    border: 1px solid #999
+    +border-radius(5px)
+
+    &>.option
+      display: block
+      padding: 10px
+      margin-bottom: 10px
+      border-bottom: 1px solid #999
+      +clearfix
+
+      &:last-child
+        margin-bottom: 0
+        border: none
+
+      .iPhoneCheckContainer
+        float: right
+
+      label
+        width: 40px
+
+      &>label
+        float: left
+        width: 160px
