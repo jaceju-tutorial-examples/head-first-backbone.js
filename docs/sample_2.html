@@ -1,0 +1,166 @@
+<!DOCTYPE html>  <html> <head>   <title>sample_2.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="collection.html">                 collection.js               </a>                                           <a class="source" href="event.html">                 event.js               </a>                                           <a class="source" href="model_1.html">                 model_1.js               </a>                                           <a class="source" href="model_2.html">                 model_2.js               </a>                                           <a class="source" href="model_3.html">                 model_3.js               </a>                                           <a class="source" href="model_4.html">                 model_4.js               </a>                                           <a class="source" href="push-state-2.html">                 push-state-2.js               </a>                                           <a class="source" href="push-state.html">                 push-state.js               </a>                                           <a class="source" href="router.html">                 router.js               </a>                                           <a class="source" href="sample_1.html">                 sample_1.js               </a>                                           <a class="source" href="sample_2.html">                 sample_2.js               </a>                                           <a class="source" href="sample_3.html">                 sample_3.js               </a>                                           <a class="source" href="sample_4.html">                 sample_4.js               </a>                                           <a class="source" href="sync_1.html">                 sync_1.js               </a>                                           <a class="source" href="sync_2.html">                 sync_2.js               </a>                                           <a class="source" href="view_1.html">                 view_1.js               </a>                                           <a class="source" href="view_2.html">                 view_2.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               sample_2.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="kd">var</span> <span class="nx">Countdown</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">Countdown</span><span class="p">.</span><span class="nx">Widget</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">_counting</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nx">hour</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="kc">null</span>
+  <span class="p">},</span>
+  <span class="nx">minute</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="kc">null</span>
+  <span class="p">},</span>
+  <span class="nx">second</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">model</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="nx">view</span><span class="o">:</span> <span class="kc">null</span>
+  <span class="p">},</span>
+  <span class="nx">intervalEvent</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumModel</span><span class="p">({</span>
+      <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">max</span> <span class="o">=</span> <span class="mi">23</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;hour&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumView</span><span class="p">({</span>
+      <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;.hour&#39;</span><span class="p">,</span>
+      <span class="nx">model</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumModel</span><span class="p">({</span>
+      <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;minute&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumView</span><span class="p">({</span>
+      <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;.minute&#39;</span><span class="p">,</span>
+      <span class="nx">model</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumModel</span><span class="p">({</span>
+      <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+    <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;second&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">parent</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">view</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumView</span><span class="p">({</span>
+      <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;.second&#39;</span><span class="p">,</span>
+      <span class="nx">model</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span>
+    <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;click .start&#39;</span><span class="o">:</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;click .pause&#39;</span><span class="o">:</span> <span class="s1">&#39;pause&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;click .reset&#39;</span><span class="o">:</span> <span class="s1">&#39;reset&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">start</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">_counting</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">secondModel</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span><span class="p">;</span>
+      <span class="nx">secondModel</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;timeup&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_timeup</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">intervalEvent</span> <span class="o">=</span> <span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">secondModel</span><span class="p">.</span><span class="nx">countdown</span><span class="p">();</span>
+      <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">_counting</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nx">pause</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">clearInterval</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">intervalEvent</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">unbind</span><span class="p">(</span><span class="s1">&#39;timeup&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">_counting</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">},</span>
+  <span class="nx">reset</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hour</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">minute</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">second</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">_timeup</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">timeup</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">timeup</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;timeup&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">max</span><span class="o">:</span> <span class="mi">59</span><span class="p">,</span>
+  <span class="nx">parent</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="p">},</span>
+  <span class="k">default</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span>
+  <span class="p">},</span>
+  <span class="nx">plus</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">max</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span> <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">minus</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">max</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span> <span class="nx">value</span><span class="o">:</span> <span class="nx">value</span> <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">reset</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span> <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+  <span class="p">},</span>
+  <span class="nx">countdown</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">minus</span><span class="p">();</span>
+      <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">countdown</span><span class="p">())</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">minus</span><span class="p">();</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;timeup&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">Countdown</span><span class="p">.</span><span class="nx">NumView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>注意要將 this 帶入第三個參數</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+  <span class="p">},</span>
+  <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s1">&#39;click .plus&#39;</span><span class="o">:</span> <span class="s1">&#39;plus&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;click .minus&#39;</span><span class="o">:</span> <span class="s1">&#39;minus&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">plus</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">plus</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">minus</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">minus</span><span class="p">();</span>
+  <span class="p">},</span>
+  <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>這裡的 this 會變成上面 bind 方法的第三個參數</p>             </td>             <td class="code">               <div class="highlight"><pre>    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.value&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_zeroFill</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">),</span> <span class="mi">2</span><span class="p">));</span>
+  <span class="p">},</span>
+  <span class="nx">_zeroFill</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">len</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">len</span> <span class="o">-=</span> <span class="nx">num</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">len</span> <span class="o">+</span> <span class="p">(</span><span class="sr">/\./</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span> <span class="o">?</span> <span class="mi">2</span> <span class="o">:</span> <span class="mi">1</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">num</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">num</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">countdownWidget</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Countdown</span><span class="p">.</span><span class="nx">Widget</span><span class="p">({</span>
+    <span class="nx">el</span><span class="o">:</span> <span class="s1">&#39;.count-down&#39;</span>
+  <span class="p">});</span>
+  <span class="nx">countdownWidget</span><span class="p">.</span><span class="nx">timeup</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;時間到！&#39;</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">});</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
