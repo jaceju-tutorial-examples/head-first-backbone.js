@@ -27,22 +27,34 @@
 <span class="p">});</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-<span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
-<span class="kd">var</span> <span class="nx">usePushState</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">({</span> <span class="nx">pushState</span><span class="o">:</span> <span class="nx">usePushState</span> <span class="p">});</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>在 pushState 啟用時，當在網址列輸入
-    http://backbone.dev/#page/1
-時，會先替代成：
-    http://backbone.dev/#/page/1
-然後再變成：
-    http://backbone.dev/page/1</p>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>這段程式主要是為了搭配 pushState: true 及 UI 使用
+  <span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">App</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+  <span class="kd">var</span> <span class="nx">usePushState</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="nx">Backbone</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">start</span><span class="p">({</span> <span class="nx">pushState</span><span class="o">:</span> <span class="nx">usePushState</span> <span class="p">});</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>在 pushState 啟用時，當在網址列輸入</p>
+
+<pre><code>http://backbone.dev/#page/1
+</code></pre>
+
+<p>時，會先替代成：</p>
+
+<pre><code>http://backbone.dev/#/page/1
+</code></pre>
+
+<p>然後再變成：</p>
+
+<pre><code>http://backbone.dev/page/1
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>這段程式主要是為了搭配 pushState: true 及 UI 使用
 實際上如果直接用瀏覽網址的話，是不用做這個動作的
-不然的話，會變成：
-    http://backbone.dev/page/1#page/1</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="nx">usePushState</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a[href^=&quot;#&quot;]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-    <span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>如果連結綁定了上面的程式碼，那麼在按下時，就會執行：
-    http://backbone.dev/#page/1</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="p">});</span>
+不然的話，會變成：</p>
+
+<pre><code>http://backbone.dev/page/1#page/1
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre>  <span class="k">if</span> <span class="p">(</span><span class="nx">usePushState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a[href^=&quot;#&quot;]&#39;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+      <span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">),</span> <span class="kc">true</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <p>如果連結綁定了上面的程式碼，那麼在按下時，就會執行：</p>
+
+<pre><code>http://backbone.dev/#page/1
+</code></pre>             </td>             <td class="code">               <div class="highlight"><pre><span class="p">});</span>
 
 </pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

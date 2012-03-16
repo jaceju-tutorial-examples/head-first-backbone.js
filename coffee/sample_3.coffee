@@ -19,8 +19,10 @@ class App.ViewPort extends Backbone.View
   render: ->
     $(@el).show()
 
+# ## MenuView 類別
 class App.MenuView extends App.ViewPort
 
+# ## OptionsView 類別
 class App.OptionsView extends App.ViewPort
 
   initialize: ->

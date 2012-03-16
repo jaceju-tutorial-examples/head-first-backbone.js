@@ -1,3 +1,4 @@
+// ## Model
 var Note = Backbone.Model.extend({
   defaults: {
     title: '',
@@ -6,10 +7,14 @@ var Note = Backbone.Model.extend({
   url: 'model.php'
 });
 
+// ## Collection
 var Notes = Backbone.Collection.extend({
   model: Note
 });
 
+// ## Prepare
+//
+// initialize data
 var notes = new Notes([
   { id: 1, title: 'note 1', content: 'This is note 1.' },
   { id: 3, title: 'note 3', content: 'This is note 3.' },
@@ -18,6 +23,8 @@ var notes = new Notes([
   { id: 9, title: 'note 9', content: 'This is note 9.' }
 ]);
 
+// ## Example
+//
 // length
 console.log(notes.length);
 console.log(notes.toJSON());
@@ -51,19 +58,20 @@ notes.add(note10);
 console.log(notes.length);
 console.log(notes.toJSON());
 
-// Backbone.sync = function(method, model, options) {
-//   console.log(method + ": " + JSON.stringify(model));
-//   model.set('id', 10, { slient: true });
-//   options.success(model);
-// };
-//
-// note10.save({
-//   title: 'note 10',
-//   content: 'This is note 10.'
-// }, {
-//   success: function (model, response) {
-//     notes.add(model);
-//     console.log(notes.length);
-//     console.log(notes.toJSON());
-//   }
-// });
+// customize `Backbon.sync`
+Backbone.sync = function(method, model, options) {
+  console.log(method + ": " + JSON.stringify(model));
+  model.set('id', 10, { slient: true });
+  options.success(model);
+};
+
+note10.save({
+  title: 'note 10',
+  content: 'This is note 10.'
+}, {
+  success: function (model, response) {
+    notes.add(model);
+    console.log(notes.length);
+    console.log(notes.toJSON());
+  }
+});
