@@ -53,13 +53,13 @@
       this.$("#buttonAdd", this.el).show();
     },
 
-    // 列表，顯示 `Back` 按鈕。
+    // 明細，顯示 `Back` 按鈕。
     detail: function () {
       this.$("a,button", this.el).hide();
       this.$("#buttonBack", this.el).show();
     },
 
-    // 列表，顯示 `Back` 及 `Save` 按鈕。
+    // 表單，顯示 `Back` 及 `Save` 按鈕。
     form: function () {
       this.$("a,button", this.el).hide();
       this.$("#buttonBack,#buttonSave", this.el).show();
@@ -196,6 +196,8 @@
 
     // 指向參照 `HeaderView` 類別所生成的物件。
     headerView: null,
+
+    pageView: null,
 
     // 參照 `HeaderView` 類別所生成的物件。
     initialize: function () {
